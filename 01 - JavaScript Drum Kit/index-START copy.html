@@ -56,8 +56,23 @@
   <audio data-key="74" src="sounds/snare.wav"></audio>
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
-
+<!-- vanilla js code below -->
 <script>
+
+    function playSound(event) {
+
+    const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
+    const key = document.querySelector(`.key[data-key='${event.keyCode}'`);
+
+    if (!audio) return; //stops function from running when null/invalid key.
+
+    audio.currentTime = 0; //currentTime is a property of audio that represents the current playback time in seconds. In this case it's used so you can spam a key and the sound will repeat, without this it would wait for the playback to finish before you could press it again.
+
+
+    // the .play method returns a promise and if it passes the playback of audio begins
+    audio.play(); //play method called on an audio element defined above.
+
+  window.addEventListener('keydown', playSound);
 
 </script>
 
