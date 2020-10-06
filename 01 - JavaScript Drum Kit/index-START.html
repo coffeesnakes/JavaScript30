@@ -56,10 +56,11 @@
   <audio data-key="74" src="sounds/snare.wav"></audio>
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
-<!-- vanilla js code below -->
-<script>
 
-    function playSound(event) {
+<!-- javascript code below in the script tags -->
+
+<script>
+  function playSound(event) {
 
     const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
     const key = document.querySelector(`.key[data-key='${event.keyCode}'`);
@@ -72,10 +73,20 @@
     // the .play method returns a promise and if it passes the playback of audio begins
     audio.play(); //play method called on an audio element defined above.
 
-  window.addEventListener('keydown', playSound);
+    key.classList.add('playing'); // adds a class to each keystroke when pressed so the css styling effects it and places the yellow border around the pressed key and slightly enlarges, this is all done in styles.css
+  };
 
+  function removeTransition(event) {
+    if (event.propertyName !== 'transform') return;
+
+    this.classList.remove('playing')
+  }
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+  window.addEventListener('keydown', playSound);
 </script>
 
-
 </body>
+
 </html>
